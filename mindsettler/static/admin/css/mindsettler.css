@@ -1,0 +1,56 @@
+/* MindSettler Admin Theme */
+
+:root {
+  --primary: #e55d80;     /* Deep Coral Pink */
+  --secondary: #453859;   /* Royal Purple */
+  --accent: #eb81a5;      /* Blush Pink */
+  --bg-main: #f3eded;     /* Whisper Pink */
+  --bg-card: #ffffff;    /* Pure White */
+  --border: #e8e6eb;     /* Pale Lavender */
+  --bg-soft: #faf9fb;    /* Ghost White */
+}
+
+/* Header */
+.navbar {
+  background-color: var(--primary) !important;
+}
+
+.navbar-brand,
+.navbar-nav .nav-link {
+  color: white !important;
+}
+
+/* Sidebar */
+.sidebar {
+  background-color: var(--bg-main) !important;
+}
+
+.sidebar a {
+  color: var(--secondary) !important;
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+}
+
+.btn-primary:hover {
+  background-color: var(--accent) !important;
+}
+
+/* Cards */
+.card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+}
+
+/* Headings */
+h1, h2, h3, h4 {
+  color: var(--primary);
+}
+
+/* Tables */
+.table thead {
+  background-color: var(--bg-soft);
+}

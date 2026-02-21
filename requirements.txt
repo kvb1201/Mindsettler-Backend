@@ -1,0 +1,43 @@
+# ───────── Core Django ─────────
+Django==6.0
+asgiref==3.11.0
+sqlparse==0.5.4
+
+# ───────── Admin UI ─────────
+django-jazzmin==3.0.1
+
+# ───────── REST & Auth ─────────
+djangorestframework==3.16.1
+djangorestframework-simplejwt==5.5.1
+PyJWT==2.10.1
+
+# ───────── CORS ─────────
+django-cors-headers==4.9.0
+
+# ───────── Database ─────────
+dj-database-url==3.0.1
+psycopg2-binary==2.9.11
+
+# ───────── Static files ─────────
+whitenoise==6.6.0
+
+# ───────── Email (SendGrid) ─────────
+sendgrid==6.12.5
+python-http-client==3.3.7
+
+# ───────── Environment ─────────
+python-dotenv==1.2.1
+
+# ───────── Deployment ─────────
+gunicorn==23.0.0
+Werkzeug==3.1.4
+whitenoise==6.6.0
+tzdata==2025.3
+MarkupSafe==3.0.3
+
+# ───────── Security / Crypto ─────────
+cryptography==46.0.3
+cffi==2.0.0
+pycparser==2.23
+
+

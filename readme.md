@@ -1,0 +1,201 @@
+
+
+# MindSettler Backend
+
+A production-ready backend for the **MindSettler Session Booking & Consultation Platform**, built with Django and Django REST Framework.  
+This service handles booking workflows, email verification, admin management, and frontend integration via clean REST APIs.
+
+> ⚠️ Note: This backend is **not Dockerized by design**. Docker is used only in the chatbot service. This backend runs as a standard Django service.
+
+---
+
+## Overview
+
+The MindSettler backend powers the complete lifecycle of a consultation booking:
+
+- Draft booking creation
+- Email verification
+- Admin approval & slot assignment
+- Payment initiation & confirmation
+- Cancellation with verification
+- Public booking status tracking
+- Admin-side booking creation & calendar management
+
+The architecture is API-first and frontend-driven, with strong validation and a strict booking state machine.
+
+---
+
+## Tech Stack
+
+- **Backend Framework**: Django 6.x
+- **API Framework**: Django REST Framework (DRF)
+- **Database**: SQLite (development), PostgreSQL (production-ready)
+- **Authentication**: Token-based (API-first)
+- **Email**: Transactional email (verification, confirmations)
+- **Admin UI**: Django Admin + Jazzmin
+- **Deployment**: Non-Docker (standard Django service)
+
+---
+
+## Core Features
+
+### 1. Booking Lifecycle (Fully Implemented)
+
+Bookings move through a **strict state machine**:
+
+```
+DRAFT → PENDING → APPROVED → PAYMENT_PENDING → CONFIRMED → COMPLETED
+                         ↘
+                          CANCELLED / REJECTED
+```
+
+Invalid state transitions are explicitly blocked at the backend level.
+
+---
+
+### 2. Email Verification System
+
+Email verification is mandatory for:
+- Booking confirmation
+- Payment initiation
+- Cancellation confirmation
+- Booking detail access
+
+All verification actions are token-based and time-safe.
+
+---
+
+### 3. Public APIs (Frontend-Focused)
+
+The backend exposes REST APIs designed for direct frontend consumption:
+
+- Create booking draft
+- Verify email
+- Check booking status (via acknowledgement ID or email)
+- Initiate & complete payment
+- Request & verify cancellation
+
+CSRF is intentionally disabled since this is a **pure API backend**.
+
+---
+
+### 4. Admin Capabilities
+
+Admins can:
+- View bookings in **calendar and list views**
+- Approve / reject bookings
+- Assign time slots
+- Create bookings manually from admin
+- Track booking states visually
+- Filter bookings by status and date
+
+Admin-created bookings:
+- Automatically generate acknowledgement IDs
+- Follow the same state machine as user bookings
+- Bypass email verification where appropriate
+
+---
+
+### 5. Acknowledgement ID System
+
+Every booking is assigned a unique, human-readable acknowledgement ID:
+
+```
+MS-XXXXXX
+```
+
+This ID is used for:
+- Public status tracking
+- Payment flows
+- Support references
+- Email communication
+
+---
+
+### 6. Validation & Safety Guarantees
+
+The backend enforces:
+- One active booking per user (email-based)
+- Email verification before sensitive actions
+- Payment-before-confirmation
+- No silent failures (all invalid actions return explicit errors)
+
+All business rules are enforced server-side.
+
+---
+
+> The chatbot is a **separate service** and integrates only via APIs.
+
+---
+
+## Project Structure (Simplified)
+
+```
+mindsettler-backend/
+├── apps/
+│   ├── bookings/
+│   ├── users/
+│   └── consultants/
+├── mindsettler/
+│   ├── settings/
+│   ├── urls.py
+│   └── wsgi.py
+├── manage.py
+└── requirements.txt
+```
+
+---
+
+## Security & CORS
+
+- **CORS**: Enabled for trusted frontend origins
+- **CSRF**: Disabled (API-only backend)
+- **Auth**: Token-based
+- **Emails**: Verified before all sensitive operations
+
+---
+
+## Environment Configuration
+
+Required environment variables (production):
+
+```
+SECRET_KEY
+DEBUG
+ALLOWED_HOSTS
+DATABASE_URL
+EMAIL_HOST
+EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD
+FRONTEND_URL
+```
+
+---
+
+## Development Status
+
+✅ Booking system fully functional  
+✅ Email verification flows stable  
+✅ Admin calendar & list views implemented  
+✅ Frontend integration tested  
+🟢 Production-ready backend  
+
+---
+
+## Notes for Developers
+
+- Do not hardcode frontend flows — rely on API responses
+- Treat booking status as the single source of truth
+- Avoid bypassing state transitions
+- Chatbot should only **consume APIs**, never replicate logic
+
+---
+
+## License
+
+Internal project — all rights reserved.
+
+---
+
+**MindSettler Backend**  
+Built for reliability, clarity, and long-term scalability.
