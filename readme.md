@@ -32,11 +32,13 @@ The architecture is API-first and state-machine driven, with strong validation a
 
 - **Backend Framework**: Django
 - **API Framework**: Django REST Framework (DRF)
-- **Database**: SQLite (development), PostgreSQL (production-ready)
+- **Database**: PostgreSQL (production), SQLite (zero-setup local fallback)
 - **Authentication**: Token-based (API-first)
 - **Email**: Transactional email (verification, confirmations)
 - **Admin UI**: Django Admin + Jazzmin
 - **Deployment**: Non-Docker (standard Django service)
+
+> PostgreSQL is used in production deployments. For local development and evaluation, the backend automatically falls back to SQLite if no `DATABASE_URL` is provided, allowing the project to run without external database setup.
 
 ---
 
@@ -172,7 +174,7 @@ mindsettler-backend/
 
 ## Environment Configuration
 
-Required environment variables (production):
+Required environment variables (production – PostgreSQL):
 
 ```
 SECRET_KEY
@@ -184,6 +186,17 @@ EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD
 FRONTEND_URL
 ```
+
+### Local Development (No PostgreSQL Required)
+
+If `DATABASE_URL` is not set, the backend automatically uses a local SQLite database:
+
+```
+python manage.py migrate
+python manage.py runserver
+```
+
+This ensures the project remains runnable even if the hosted PostgreSQL instance expires.
 
 ---
 
