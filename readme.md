@@ -1,11 +1,14 @@
-
-
 # MindSettler Backend
 
-A production-ready backend for the **MindSettler Session Booking & Consultation Platform**, built with Django and Django REST Framework.  
-This service handles booking workflows, email verification, admin management, and frontend integration via clean REST APIs.
+Backend service for **MindSettler**, a mental wellness counseling session booking platform developed during **GWOC (Google Winter of Code)** under **DSC Surat**.
 
-> ⚠️ Note: This backend is **not Dockerized by design**. Docker is used only in the chatbot service. This backend runs as a standard Django service.
+This repository contains the workflow-driven Django REST backend responsible for consultation booking lifecycle management, approvals, scheduling, and secure data handling.
+
+🔗 Full collaborative MindSettler platform: https://github.com/ShreyaSVNIT/mindsettler
+
+> I contributed as the backend developer, designing the session state machine, approval logic, and data architecture powering the platform.
+
+---
 
 ---
 
@@ -21,13 +24,13 @@ The MindSettler backend powers the complete lifecycle of a consultation booking:
 - Public booking status tracking
 - Admin-side booking creation & calendar management
 
-The architecture is API-first and frontend-driven, with strong validation and a strict booking state machine.
+The architecture is API-first and state-machine driven, with strong validation and strict lifecycle enforcement.
 
 ---
 
 ## Tech Stack
 
-- **Backend Framework**: Django 6.x
+- **Backend Framework**: Django
 - **API Framework**: Django REST Framework (DRF)
 - **Database**: SQLite (development), PostgreSQL (production-ready)
 - **Authentication**: Token-based (API-first)
@@ -124,6 +127,18 @@ All business rules are enforced server-side.
 
 ---
 
+## System Relationship
+
+MindSettler consists of multiple services:
+
+- Frontend client  
+- NLP chatbot service  
+- Backend booking system (**this repo**)  
+
+The chatbot consumes backend APIs and does not replicate booking logic.
+
+---
+
 > The chatbot is a **separate service** and integrates only via APIs.
 
 ---
@@ -188,6 +203,13 @@ FRONTEND_URL
 - Treat booking status as the single source of truth
 - Avoid bypassing state transitions
 - Chatbot should only **consume APIs**, never replicate logic
+
+---
+
+## Author
+
+**Kavya Bhatiya**  
+Backend Developer — MindSettler (GWOC, DSC Surat)
 
 ---
 
